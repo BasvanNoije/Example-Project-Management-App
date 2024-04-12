@@ -5,7 +5,9 @@ import { TASK_STATUS_CLASS_MAP, TASK_STATUS_TEXT_MAP } from "@/constants.jsx";
 import TableHeading from "@/Components/TableHeading";
 import { Link, router } from '@inertiajs/react';
 
-export default function TasksTable({ tasks, queryParams }) {
+export default function TasksTable({ tasks,
+  queryParams = null,
+  hideProjectColumn = false }) {
 
   queryParams = queryParams || {};
 
@@ -42,7 +44,7 @@ export default function TasksTable({ tasks, queryParams }) {
 
   return (
     <>
-      <div className="overflow-auto">
+      <div className="overflow-auto sm:rounded-lg">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="txt-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b-2 border-gray-500">
             <tr className="text-nowrap">
@@ -59,6 +61,13 @@ export default function TasksTable({ tasks, queryParams }) {
               >
                 Image
               </th>
+              {!hideProjectColumn && (
+                <th
+                  className="px-3 py-3"
+                >
+                  Project Name
+                </th>
+              )}
               <TableHeading
                 name="name"
                 sort_field={queryParams.sort_field}
@@ -106,6 +115,10 @@ export default function TasksTable({ tasks, queryParams }) {
             <tr className="text-nowrap">
               <th className="px-3 py-3"></th>
               <th className="px-3 py-3"></th>
+              {!hideProjectColumn && (
+
+                <th className="px-3 py-3"></th>
+              )}
               <th className="px-3 py-3">
                 <TextInput
                   className="w-full"
@@ -140,6 +153,9 @@ export default function TasksTable({ tasks, queryParams }) {
                 <td className="px-3 py-2">
                   <img src={task.image_path} style={{ width: 60 }} />
                 </td>
+                {!hideProjectColumn && (
+                  <td className="px-3 py-2">{task.project.name}</td>
+                )}
                 <td className="px-3 py-2">{task.name}</td>
                 <td className="px-3 py-2">
                   <span className={
