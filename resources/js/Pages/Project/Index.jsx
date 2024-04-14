@@ -8,7 +8,7 @@ import TableHeading from "@/Components/TableHeading";
 
 
 
-export default function Index({ auth, projects, queryParams = null }) {
+export default function Index({ auth, projects, queryParams = null, success }) {
 
   queryParams = queryParams || {};
 
@@ -59,8 +59,14 @@ export default function Index({ auth, projects, queryParams = null }) {
     >
       <Head title="Projects" />
 
+
       <div className="py-12">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+          {success && (
+            <div className="bg-emerald-500 py-2 px-4 text-white mb-4 rounded">
+              {success}
+            </div>
+          )}
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div className="p-6 text-gray-900 dark:text-gray-100">
               <div className="overflow-auto">
@@ -161,7 +167,7 @@ export default function Index({ auth, projects, queryParams = null }) {
                         <td className="px-3 py-2">
                           <img src={project.image_path} style={{ width: 60 }} />
                         </td>
-                        <th className="px-3 py-2 text-gray-100 text-nowrap hover:underline">
+                        <th className="px-3 py-2 text-gray-800 text-nowrap hover:underline">
                           <Link href={route('project.show', project.id)}>
                             {project.name}
                           </Link>
