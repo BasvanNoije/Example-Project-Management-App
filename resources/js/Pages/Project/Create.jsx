@@ -51,9 +51,8 @@ export default function Create({ auth }) {
                   id="project_image_path"
                   type="file"
                   name="image"
-                  value={data.image}
                   className="mt-1 block w-full"
-                  onChange={event => setData('image', event.target.value)}
+                  onChange={event => setData('image', event.target.files[0])}
                 />
                 <InputError
                   message={errors.image}
