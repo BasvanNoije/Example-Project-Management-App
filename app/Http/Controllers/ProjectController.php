@@ -51,15 +51,17 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    //TODO: bug on file upload: "The image failed to upload."
     public function store(StoreProjectRequest $request)
     {
         $data = $request->validated();
+        dd($data);
         $data['created_by'] = Auth::id();
         $data['updated_by'] = Auth::id();
 
         Project::create($data);
 
-        return to_route(route('project.index'))->with('success', 'Project was created');
+        return redirect()->route('project.index')->with('success', 'Project was created');
     }
 
     /**
