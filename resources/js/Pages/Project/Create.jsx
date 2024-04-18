@@ -19,6 +19,9 @@ export default function Create({ auth }) {
   const onSubmit = (event) => {
     event.preventDefault();
 
+    console.log(data.image);
+
+
     post(route('project.store'));
   }
 
@@ -52,7 +55,7 @@ export default function Create({ auth }) {
                   type="file"
                   name="image"
                   className="mt-1 block w-full"
-                  onChange={event => setData('image', event.target.files[0])}
+                  onChange={(event) => setData("image", event.target.files[0])}
                 />
                 <InputError
                   message={errors.image}

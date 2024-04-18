@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use Illuminate\Support\Str;
 use App\Http\Resources\TaskResource;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\ProjectResource;
@@ -51,14 +52,16 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    //TODO: bug on file upload: "The image failed to upload."
     public function store(StoreProjectRequest $request)
     {
         $data = $request->validated();
-        dd($data);
+        /** @var $image \Illuminate\Http\UploadedFile */
+        $image = $data['image'] ?? null;
         $data['created_by'] = Auth::id();
         $data['updated_by'] = Auth::id();
-
+        if ($image) {
+            $data['image_path'] = $image->store('project/' . Str::random(), 'public');
+        }
         Project::create($data);
 
         return redirect()->route('project.index')->with('success', 'Project was created');
