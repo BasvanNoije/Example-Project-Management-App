@@ -19,9 +19,6 @@ export default function Create({ auth }) {
   const onSubmit = (event) => {
     event.preventDefault();
 
-    console.log(data.image);
-
-
     post(route('project.store'));
   }
 
